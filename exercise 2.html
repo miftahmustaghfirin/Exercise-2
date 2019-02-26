@@ -1,0 +1,131 @@
+<html>
+<head>
+      <style type="text/css">
+         span{
+         background-color:pink;
+         }
+         .box {
+         background-color: yellow;
+         border: 2px dashed blueviolet;
+         padding: 50px;
+         width: 500px;
+         }
+         .box-2 {
+         background-color:red;
+         border: 2px dashed #000000;
+         padding: 20px;
+         width: 300px;
+         }
+         </style>
+   <script language="JavaScript" type="text/javascript">
+
+// declare variables
+var add, subtract, divide, multiply;
+// set up the form
+function initialise() {
+
+         add      =document.calculateForm.operator.options[0];
+         subtract =document.calculateForm.operator.options[1];
+         divide   =document.calculateForm.operator.options[2];
+         multiply =document.calculateForm.operator.options[3];
+   
+         document.calculateForm.val1.value = 0;
+         document.calculateForm.val2.value = 0;
+}
+// check that the text box just used is filled with a number
+function numberCheck(elementName) {
+         switch (elementName)
+         {
+            case "val1":
+            var tmp = parseInt(document.calculateForm.val1.value);
+            if (isNaN(tmp))
+            {
+               alert("Please enter a valid numerial value into the first text box.");
+               document.getElementById("val1").value=0; // a different way to access a form element
+               return false;
+            }
+            break;
+   
+            case "val2":
+            var tmp = parseInt(document.calculateForm.val2.value);
+            if (isNaN(tmp))
+            {
+               alert("Please enter a valid numerial value into the second text box.");
+               document.calculateForm.val2.value=0;
+               return false;
+            }
+            break;
+         }
+   
+         return true;
+}
+// do the requested calculation
+function calculate() {
+         // temporary place to store the result
+         var result = 0;
+   
+         // convert the vales in the boxes into integers
+         var x = parseInt(document.calculateForm.val1.value);
+         var y = parseInt(document.calculateForm.val2.value);
+   
+         // work out which operation needs to be performed and do it
+         if (add.selected) result = x + y;
+         else if (subtract.selected) result = x - y;
+         else if (multiply.selected) result = x * y;
+   
+         else // (divide.selected) need to test for divide by zero request
+         {
+            if (y == 0)
+            {
+               alert ("Sorry, you cannot divide by 0!");
+            }
+   
+            else
+            {
+               result = x / y;
+            }
+         }
+   
+         document.calculateForm.val3.value = result;
+         }
+</script>
+ </head>
+<body onload="initialise()">
+      <div class="box-2">
+<h2>Kalkulator Sederhana</h2>
+      </div>
+<p>
+<span>
+
+   Silakan masukkan dua operand , lalu pilih operator, kemudian klik tombol hitung
+</span>
+ <div class="box">
+   <form action="post" name="calculateForm" id="calculateForm">
+
+   <input type="text" name="val1" value="val1" id="val1" size="10" onblur="numberCheck(name);" />
+ 
+   <select name="operator">
+    <option value="add">+</option>
+    <option value="subtract">-</option>
+    <option value="divide">/</option>
+    <option value="multiply">*</option>
+   </select>
+
+   <input type="text" name="val2" value="val2" id="val2" size="10" onblur="numberCheck(name);" />
+     =
+
+   <input name="val3" type="text" size="10" readonly="readonly" />
+   <input type="button" value="Hitung" onclick="calculate();" />
+
+</form>
+</div>
+<br>
+<span>
+   Sumber : 
+   <a href="http://users.monash.edu/~cema/courses/FIT3084/lectureNotes/lect15Calculator.html">
+   http://users.monash.edu/~cema/courses/FIT3084/lectureNotes/lect15Calculator.html</a>
+   <br><br>
+   Dimodifikasi oleh Miftahul Mustafirin
+</span>
+</body>
+ </html>
